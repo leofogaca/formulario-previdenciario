@@ -13,25 +13,21 @@
       font-size: 16px;
       color: #333;
     }
-
     header, footer {
       text-align: center;
       margin-bottom: 2rem;
     }
-
     header img, footer img {
       max-width: 720px;
       width: 100%;
       height: auto;
     }
-
     h2 {
       text-align: center;
       font-size: 1.25rem;
       margin-bottom: 1rem;
       padding: 0 1rem;
     }
-
     .form-section {
       max-width: 800px;
       margin: auto;
@@ -40,32 +36,26 @@
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .field-group {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       margin-bottom: 1rem;
     }
-
     .field, .field-half, .field-full {
       display: flex;
       flex-direction: column;
     }
-
     .field-full {
       flex: 1 1 100%;
     }
-
     .field-half {
       flex: 1 1 48%;
     }
-
     label {
       font-weight: 500;
       margin-bottom: 4px;
     }
-
     input, select {
       width: 100%;
       padding: 10px;
@@ -74,14 +64,12 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-
     .card-checkbox-group {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
       margin: 1rem 0;
     }
-
     .card-checkbox {
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -93,53 +81,50 @@
       transition: background 0.2s, border-color 0.2s;
       background: #fff;
     }
-
+    .card-checkbox input {
+      display: none;
+    }
     .card-checkbox.selected {
       background: #e6f7ff;
       border-color: #0077cc;
     }
-
-    .card-checkbox input {
-      display: none;
-    }
-
     .checkbox-group-finais {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem 2rem;
+      gap: 1rem;
       margin: 1rem 0;
     }
-
     .checkbox-final {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-weight: 500;
-      min-width: 300px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      background: #fff;
     }
-
-    .checkbox-final input[type="checkbox"] {
-      transform: scale(1.1);
-      accent-color: #005fa3;
-      margin: 0;
+    .checkbox-final input {
+      display: none;
     }
-
+    .checkbox-final.selected {
+      background: #e6f7ff;
+      border-color: #0077cc;
+    }
     ol {
       padding-left: 1.2rem;
     }
-
     .assinaturas {
       display: flex;
       justify-content: space-between;
       gap: 2rem;
       margin-top: 2rem;
     }
-
     .assinaturas div {
       flex: 1;
       text-align: center;
     }
-
     .assinaturas input {
       border: none;
       border-bottom: 1px solid #000;
@@ -148,7 +133,6 @@
       width: 80%;
       margin-top: 0.5rem;
     }
-
     @media print {
       button, .submit-print, select { display: none; }
       input, select { border: none; }
@@ -162,7 +146,6 @@
 
   <div class="form-section">
     <h2>EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
-
     <div class="field-full">
       <label>Seção Judiciária:
         <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
@@ -172,46 +155,35 @@
         </select>
       </label>
     </div>
-
-      <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
-
+    <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
     <div class="field-group">
       <div class="field-half"><label>CPF:<input type="text" id="cpf"></label></div>
       <div class="field-half"><label>RG:<input type="text" id="rg"></label></div>
     </div>
-
     <div class="field-group">
       <div class="field-half"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
       <div class="field-half"><label>Idade:<input type="number" id="idade" readonly></label></div>
     </div>
-
     <div class="field-group">
       <div class="field-half"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
       <div class="field-half"><label>Profissão:<input type="text" id="profissao"></label></div>
     </div>
-
     <div class="field-group">
       <div class="field-half"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
       <div class="field-half"><label>Gênero:<input type="text" id="genero"></label></div>
     </div>
-
     <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
-
     <div class="field-group">
       <div class="field-half"><label>Número:<input type="text" id="numero"></label></div>
       <div class="field-half"><label>Complemento:<input type="text" id="complemento"></label></div>
     </div>
-
     <div class="field-group">
       <div class="field-half"><label>Bairro:<input type="text" id="bairro"></label></div>
       <div class="field-half"><label>Cidade:<input type="text" id="cidade"></label></div>
     </div>
-
     <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
 
-
     <p>Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
-
     <div class="card-checkbox-group" id="beneficios">
       <label class="card-checkbox"><input type="checkbox" id="aposentadoria_idade_rural"> Aposentadoria por idade rural</label>
       <label class="card-checkbox"><input type="checkbox" id="aposentadoria_idade_urbana"> Aposentadoria por idade urbana</label>
@@ -226,8 +198,6 @@
       <label class="card-checkbox"><input type="checkbox" id="loas"> LOAS</label>
     </div>
 
-    
-
     <p>Restando preenchidos os requisitos legais, requer:</p>
     <ol>
       <li>A concessão dos benefícios da justiça gratuita;</li>
@@ -236,15 +206,11 @@
     </ol>
     <p>Valor da causa, até 60 (sessenta) salários-mínimos.</p>
 
-    <div class="checkbox-group" id="informacoes_finais">
-      <div class="checkbox-row">
-        <div class="checkbox-cell"><label><input type="checkbox" id="whatsapp" name="whatsapp"> Aceita intimação por WhatsApp</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="dpu" name="dpu"> Aceita ser defendido pela DPU</label></div>
-      </div>
-      <div class="checkbox-row">
-        <div class="checkbox-cell"><label><input type="checkbox" id="idoso" name="idoso"> Idoso</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="mpu" name="mpu"> Menor/incapaz – MPU</label></div>
-      </div>
+    <div class="checkbox-group-finais">
+      <label class="checkbox-final"><input type="checkbox" id="whatsapp"> Aceita intimação por WhatsApp</label>
+      <label class="checkbox-final"><input type="checkbox" id="dpu"> Aceita ser defendido pela DPU</label>
+      <label class="checkbox-final"><input type="checkbox" id="idoso"> Idoso</label>
+      <label class="checkbox-final"><input type="checkbox" id="mpu"> Menor/incapaz – MPU</label>
     </div>
 
     <div class="field-group">
@@ -263,42 +229,8 @@
     </div>
   </div>
 
-
-  </div>
-
   <footer>
     <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
   </footer>
-  <script>
-    function calcularIdade() {
-      const nascimento = document.getElementById('dataNascimento')?.value;
-      const campoIdade = document.getElementById('idade');
-      if (nascimento && campoIdade) {
-        const hoje = new Date();
-        const nascimentoData = new Date(nascimento);
-        let idade = hoje.getFullYear() - nascimentoData.getFullYear();
-        const m = hoje.getMonth() - nascimentoData.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nascimentoData.getDate())) {
-          idade--;
-        }
-        campoIdade.value = idade;
-      }
-    }
-
-    window.onload = function () {
-      const hoje = new Date();
-      const dia = String(hoje.getDate()).padStart(2, '0');
-      const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-      const ano = hoje.getFullYear();
-      const dataAtual = document.getElementById('dataAtual');
-      if (dataAtual) dataAtual.value = `${ano}-${mes}-${dia}`;
-
-      document.querySelectorAll('.card-checkbox').forEach(item => {
-        item.addEventListener('click', () => {
-          item.classList.toggle('selected');
-        });
-      });
-    }
-  </script>
 </body>
 </html>
