@@ -22,58 +22,54 @@
     h2 {
       text-align: center;
     }
-    .field-group {
+    .field-group, .final-group {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
     .field, .field-full {
-      flex: 1;
-      min-width: 180px;
+      flex: 1 1 100%;
     }
-    .field-full {
-      width: 100%;
+    .field-half {
+      flex: 1 1 48%;
     }
     label {
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
     input, select {
       width: 100%;
-      padding: 4px;
+      padding: 6px;
       font-size: 14px;
       box-sizing: border-box;
     }
     .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.5rem 1rem;
       margin: 1rem 0;
     }
     .checkbox-group label {
-      flex: 1 1 45%;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .assinaturas {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 2rem;
       margin-top: 2rem;
     }
     .assinaturas div {
       text-align: center;
-      width: 48%;
     }
     .assinaturas input {
       border: none;
       border-bottom: 1px solid #000;
-      width: 100%;
+      width: 80%;
       text-align: center;
       font-weight: bold;
-    }
-    .final-group {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
     }
     @media print {
       button, .submit-print, select { display: none; }
@@ -100,31 +96,36 @@
   <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
 
   <div class="field-group">
-    <div class="field"><label>CPF:<input type="text" id="cpf"></label></div>
-    <div class="field"><label>RG:<input type="text" id="rg"></label></div>
+    <div class="field-half"><label>CPF:<input type="text" id="cpf"></label></div>
+    <div class="field-half"><label>RG:<input type="text" id="rg"></label></div>
   </div>
 
   <div class="field-group">
-    <div class="field"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
-    <div class="field"><label>Idade:<input type="number" id="idade" readonly></label></div>
-    <div class="field"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
+    <div class="field-half"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
+    <div class="field-half"><label>Idade:<input type="number" id="idade" readonly></label></div>
   </div>
 
   <div class="field-group">
-    <div class="field"><label>Profissão:<input type="text" id="profissao"></label></div>
-    <div class="field"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
-    <div class="field"><label>Gênero:<input type="text" id="genero"></label></div>
+    <div class="field-half"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
+    <div class="field-half"><label>Profissão:<input type="text" id="profissao"></label></div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-half"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
+    <div class="field-half"><label>Gênero:<input type="text" id="genero"></label></div>
   </div>
 
   <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
 
   <div class="field-group">
-    <div class="field"><label>Número:<input type="text" id="numero"></label></div>
-    <div class="field"><label>Complemento:<input type="text" id="complemento"></label></div>
-    <div class="field"><label>Bairro:<input type="text" id="bairro"></label></div>
+    <div class="field-half"><label>Número:<input type="text" id="numero"></label></div>
+    <div class="field-half"><label>Complemento:<input type="text" id="complemento"></label></div>
   </div>
 
-  <div class="field-full"><label>Cidade:<input type="text" id="cidade"></label></div>
+  <div class="field-group">
+    <div class="field-half"><label>Bairro:<input type="text" id="bairro"></label></div>
+    <div class="field-half"><label>Cidade:<input type="text" id="cidade"></label></div>
+  </div>
 
   <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
 
@@ -158,9 +159,9 @@
     <label><input type="checkbox"> Menor/incapaz – MPU</label>
   </div>
 
-  <div class="field-group">
-    <div class="field"><label>Local:<input type="text" id="local"></label></div>
-    <div class="field"><label>Data:<input type="date" id="dataAtual"></label></div>
+  <div class="final-group">
+    <div class="field-half"><label>Local:<input type="text" id="local"></label></div>
+    <div class="field-half"><label>Data:<input type="date" id="dataAtual"></label></div>
   </div>
 
   <div class="assinaturas">
