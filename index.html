@@ -1,163 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>Formulário Previdenciário - Início</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulário Previdenciário</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
+      text-align: center;
       padding: 2rem 1rem;
       background: #fdfdfd;
       font-size: 16px;
       color: #333;
     }
-header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-}
-    header img, footer img {
+
+    header img {
       max-width: 720px;
       width: 100%;
       height: auto;
+      margin-bottom: 1.5rem;
     }
-    .form-section {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+    h1 {
+      font-size: 1.25rem;
+      margin: 1rem auto 2rem;
     }
-    .field-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .field-full, .field-half {
-      display: flex;
-      flex-direction: column;
-    }
-    .field-full {
-      flex: 1 1 100%;
-    }
-    .field-half {
-      flex: 1 1 48%;
-    }
-    label {
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
+
+    .botao {
+      display: inline-block;
+      padding: 1rem 2rem;
+      margin: 1rem;
       font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    .card-checkbox-group, .checkbox-group-finais {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin: 1rem 0;
-    }
-    .card-checkbox, .checkbox-final {
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 0.5rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      background: #fff;
-    }
-    .card-checkbox input, .checkbox-final input {
-      display: none;
-    }
-    .card-checkbox.selected, .checkbox-final.selected {
-      background: #e6f7ff;
-      border-color: #0077cc;
-    }
-    .assinaturas {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    .assinaturas div {
-      flex: 1;
-      text-align: center;
-    }
-    .assinaturas input {
+      background-color: #0077cc;
+      color: #fff;
       border: none;
-      border-bottom: 1px solid #000;
-      text-align: center;
-      font-weight: bold;
-      width: 80%;
-      margin-top: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-    .submit-print {
-      text-align: center;
-      margin-top: 2rem;
+
+    .botao:hover {
+      background-color: #005fa3;
     }
-    @media print {
-  body {
-    font-size: 10px;
-    margin: 10mm;
-  }
-  input, select {
-    font-size: 10px;
-  }
-  header {
-    margin-bottom: 1rem;
-  }
 
-  footer {
-    display: none !important;
-  }
-
-  .form-section {
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .card-checkbox,
-  .checkbox-final {
-    border: none !important;
-    padding: 0;
-    margin: 0.2rem 0;
-    background: none !important;
-  }
-
-  .card-checkbox input,
-  .checkbox-final input {
-    display: none !important;
-  }
-
-  .card-checkbox:not(.selected),
-  .checkbox-final:not(.selected) {
-    display: none !important;
-  }
-
-  .field-group, .field-full, .field-half, .assinaturas {
-    page-break-inside: avoid;
-  }
-
-  button, .submit-print, select {
-    display: none !important;
-  }
-
-  input, select {
-    border: none;
-    padding: 0;
-    font-size: 12px;
-  }
-}
+    @media (max-width: 600px) {
+      .botao {
+        width: 90%;
+        display: block;
+        margin: 0.5rem auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -165,259 +58,27 @@ header {
     <img src="https://leofogaca.github.io/formulario-previdenciario/cabecalho.png" alt="Cabeçalho">
   </header>
 
-  <div class="form-section">
-    <h2>EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
-    <div class="field-full">
-      <label>Seção Judiciária:
-        <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
-          <option value="">Selecione...</option>
-          <option value="Amazonas">Amazonas</option>
-          <option value="Acre">Acre</option>
-        </select>
-      </label>
-    </div>
+  <h1 id="mensagemTotal">Olá, até agora já preenchemos <span id="contadorFormularios">...</span> formulários.</h1>
 
-    <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
-    <div class="field-group">
-      <div class="field-half"><label>CPF:<input type="text" id="cpf"></label></div>
-      <div class="field-half"><label>RG:<input type="text" id="rg"></label></div>
-    </div>
-    <div class="field-group">
-      <div class="field-half"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
-      <div class="field-half"><label>Idade:<input type="number" id="idade" readonly></label></div>
-    </div>
-    <div class="field-group">
-      <div class="field-half"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
-      <div class="field-half"><label>Profissão:<input type="text" id="profissao"></label></div>
-    </div>
-    <div class="field-group">
-      <div class="field-half"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
-      <div class="field-half"><label>Gênero:<input type="text" id="genero"></label></div>
-    </div>
-    <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
-    <div class="field-group">
-      <div class="field-half"><label>Número:<input type="text" id="numero"></label></div>
-      <div class="field-half"><label>Complemento:<input type="text" id="complemento"></label></div>
-    </div>
-    <div class="field-group">
-      <div class="field-half"><label>Bairro:<input type="text" id="bairro"></label></div>
-      <div class="field-half"><label>Cidade:<input type="text" id="cidade"></label></div>
-    </div>
-    <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
-
-    <p>Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
-    <div class="card-checkbox-group" id="beneficios">
-      <label class="card-checkbox"><input type="checkbox" id="aposentadoria_idade_rural"> Aposentadoria por idade rural</label>
-      <label class="card-checkbox"><input type="checkbox" id="aposentadoria_idade_urbana"> Aposentadoria por idade urbana</label>
-      <label class="card-checkbox"><input type="checkbox" id="aposentadoria_invalidez_rural"> Aposentadoria por invalidez rural</label>
-      <label class="card-checkbox"><input type="checkbox" id="aposentadoria_invalidez_urbana"> Aposentadoria por invalidez urbana</label>
-      <label class="card-checkbox"><input type="checkbox" id="auxilio_doenca_urbano"> Auxílio-doença urbano</label>
-      <label class="card-checkbox"><input type="checkbox" id="auxilio_doenca_rural"> Auxílio-doença rural</label>
-      <label class="card-checkbox"><input type="checkbox" id="salario_maternidade"> Salário-maternidade</label>
-      <label class="card-checkbox"><input type="checkbox" id="auxilio_reclusao"> Auxílio-reclusão</label>
-      <label class="card-checkbox"><input type="checkbox" id="pensao_morte"> Pensão por morte</label>
-      <label class="card-checkbox"><input type="checkbox" id="pensao_soldado_borracha"> Pensão vitalícia soldado da borracha</label>
-      <label class="card-checkbox"><input type="checkbox" id="loas"> LOAS</label>
-    </div>
-
-    <p>Restando preenchidos os requisitos legais, requer:</p>
-    <ol>
-      <li>A concessão dos benefícios da justiça gratuita;</li>
-      <li>Que seja condenado o INSS a conceder ao(à) Autor(a) o benefício previdenciário/assistencial supra.</li>
-      <li>A renúncia ao que exceder à soma de 60 (sessenta) salários-mínimos.</li>
-    </ol>
-    <p>Valor da causa, até 60 (sessenta) salários-mínimos.</p>
-
-    <div class="checkbox-group-finais">
-      <label class="checkbox-final"><input type="checkbox" id="whatsapp"> Aceita intimação por WhatsApp</label>
-      <label class="checkbox-final"><input type="checkbox" id="dpu"> Aceita ser defendido pela DPU</label>
-      <label class="checkbox-final"><input type="checkbox" id="idoso"> Idoso</label>
-      <label class="checkbox-final"><input type="checkbox" id="mpu"> Menor/incapaz – MPU</label>
-    </div>
-
-    <div class="field-group">
-      <div class="field-half"><label>Local:<input type="text" id="local"></label></div>
-      <div class="field-half"><label>Data:<input type="date" id="dataAtual"></label></div>
-    </div>
-
-    <div class="assinaturas">
-      <div>
-        <p>__________________________<br>Autor(a)</p>
-      </div>
-      <div>
-        <p>__________________________<br>Atermador(a)</p>
-        <input type="text" id="atermador" placeholder="Nome do Atermador">
-      </div>
-    </div>
-
-    <div class="submit-print">
-      <button id="btnSalvar" onclick="enviarFormulario()">Salvar dados</button>
-<button id="btnImprimir" onclick="prepararParaImpressao()" disabled>Imprimir</button>
-      <button onclick="resetarFormulario()">Novo formulário</button>
-    </div>
-  </div>
-
-  <footer>
-    <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
-  </footer>
+  <!-- Lembre-se de substituir o caminho abaixo pelo caminho correto do seu GitHub se estiver em subdiretório -->
+  <a href="https://leofogaca.github.io/formulario-previdenciario/formulario.html" class="botao">Preencher Novo Formulário</a>
+  <a href="estatisticas.html" class="botao">Ver Estatísticas</a>
 
   <script>
-    function calcularIdade() {
-      const nascimento = document.getElementById('dataNascimento')?.value;
-      const campoIdade = document.getElementById('idade');
-      if (nascimento && campoIdade) {
-        const hoje = new Date();
-        const nascimentoData = new Date(nascimento);
-        let idade = hoje.getFullYear() - nascimentoData.getFullYear();
-        const m = hoje.getMonth() - nascimentoData.getMonth();
-        if (m < 0 || (m === 0 && hoje.getDate() < nascimentoData.getDate())) {
-          idade--;
-        }
-        campoIdade.value = idade;
-      }
-    }
-
-    window.onload = function () {
-      const hoje = new Date();
-      document.getElementById('dataAtual').value = hoje.toISOString().split('T')[0];
-
-      document.querySelectorAll('.card-checkbox, .checkbox-final').forEach(card => {
-        card.addEventListener('click', function () {
-          const input = this.querySelector('input');
-          input.checked = !input.checked;
-          this.classList.toggle('selected', input.checked);
-        });
-      });
-    };
-
-    async function enviarFormulario() {
-      const nome = document.getElementById('nome').value.trim();
-      const cpf = document.getElementById('cpf').value.trim();
-      const atermador = document.getElementById('atermador').value.trim();
-
-      if (!nome || !cpf || !atermador) {
-        alert("Preencha os campos obrigatórios: Nome, CPF e Atermador.");
-        return;
-      }
-
-      const beneficiosSelecionados = Array.from(document.querySelectorAll('.card-checkbox input:checked')).map(i => i.parentElement.textContent.trim());
-
-      const dados = {
-        secaoJudiciaria: document.getElementById('secaoJudiciaria').value,
-        nome,
-        cpf,
-        rg: document.getElementById('rg').value,
-        dataNascimento: document.getElementById('dataNascimento').value,
-        idade: document.getElementById('idade').value,
-        estadoCivil: document.getElementById('estadoCivil').value,
-        profissao: document.getElementById('profissao').value,
-        escolaridade: document.getElementById('escolaridade').value,
-        genero: document.getElementById('genero').value,
-        logradouro: document.getElementById('logradouro').value,
-        numero: document.getElementById('numero').value,
-        complemento: document.getElementById('complemento').value,
-        bairro: document.getElementById('bairro').value,
-        cidade: document.getElementById('cidade').value,
-        telefone: document.getElementById('telefone').value,
-        beneficios: beneficiosSelecionados,
-        whatsapp: document.getElementById('whatsapp').checked,
-        dpu: document.getElementById('dpu').checked,
-        idoso: document.getElementById('idoso').checked,
-        mpu: document.getElementById('mpu').checked,
-        local: document.getElementById('local').value,
-        dataAtual: document.getElementById('dataAtual').value,
-        atermador
-      };
-
+    async function buscarTotal() {
       try {
-        await fetch("https://script.google.com/macros/s/AKfycbwM4Dh0AoTsmli_nZ3sQGnjShgg_cAx8WaGj8K-1UOcsfkU5lVKpn6dqa6Hzs36CMxZ/exec", {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(dados)
-        });
-        alert("Dados salvos com sucesso!");
-        document.getElementById('btnImprimir').disabled = false;
-      } catch (error) {
-        alert("Erro ao salvar: " + error.message);
+        const url = 'https://script.google.com/macros/s/AKfycbxOL1Ai-AU8mQc0rRrKytCeplU0XQDCsKTU391PnZlNwsLFlQ3-Y2AjMj0zgDzhQCIE/exec';
+        const res = await fetch(url);
+        const data = await res.json();
+
+        document.getElementById('contadorFormularios').textContent = data.total;
+      } catch (err) {
+        document.getElementById('contadorFormularios').textContent = 'erro';
+        console.error('Erro ao buscar dados da planilha:', err);
       }
     }
 
-    function resetarFormulario() {
-      document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], input[type="tel"]').forEach(el => el.value = '');
-      document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
-      document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-      document.getElementById('secaoJudiciaria').value = '';
-      document.getElementById('secaoDisplay').textContent = '';
-      document.getElementById('btnImprimir').disabled = true;
-    }
-	
-	function prepararParaImpressao() {
-  // Cria folha de estilo
-  const style = document.createElement("style");
-  style.innerHTML = `
-    @media print {
-      .card-checkbox:not(.selected),
-      .checkbox-final:not(.selected),
-      footer,
-      button,
-      .submit-print,
-      select {
-        display: none !important;
-      }
-
-      body {
-        font-size: 10px;
-        margin: 10mm;
-      }
-
-      header {
-        margin-bottom: 0.5rem;
-        margin-top: 0;
-      }
-
-      .form-section {
-        box-shadow: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .card-checkbox, .checkbox-final {
-        border: none !important;
-        background: none !important;
-        padding: 0;
-        margin: 0.2rem 0;
-      }
-
-      input, select {
-        border: none;
-        padding: 0;
-        font-size: 10px;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-
-  // Adiciona "SIM" aos selecionados finais
-  document.querySelectorAll('.checkbox-final.selected').forEach(el => {
-    const label = el.textContent.trim();
-    if (!el.querySelector('.sim-print')) {
-      const span = document.createElement('span');
-      span.className = 'sim-print';
-      span.style.marginLeft = '5px';
-      span.textContent = '? SIM';
-      el.appendChild(span);
-    }
-  });
-
-  window.print();
-
-  // Remove o estilo após a impressão
-  setTimeout(() => {
-    style.remove();
-    document.querySelectorAll('.sim-print').forEach(el => el.remove());
-  }, 1000);
-}
+    buscarTotal();
   </script>
 </body>
 </html>
