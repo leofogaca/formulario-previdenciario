@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estatísticas - Formulário Previdenciário</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+    }
+
+    .botoes-filtro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .botoes-filtro button {
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #0077cc;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .botoes-filtro button:hover {
+      background-color: #005fa3;
+    }
+
+    .estatisticas {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .estatisticas p {
+      margin: 0.75rem 0;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Estatísticas do Formulário Previdenciário</h1>
+
+  <div class="botoes-filtro">
+    <button onclick="filtrar('todos')">Totais Gerais</button>
+    <button onclick="filtrar('Acre')">Seção Judiciária do Acre</button>
+    <button onclick="filtrar('Amazonas')">Seção Judiciária do Amazonas</button>
+  </div>
+
+  <div id="dadosEstatisticos" class="estatisticas">
+    <p>Carregando dados...</p>
+  </div>
+
+  <script>
+    let todosOsDados = [];
+
+    async function carregarDados() {
+      try {
+        const url = 'https://script.google.com/macros/s/AKfycbxOL1Ai-AU8mQc0rRrKytCeplU0XQDCsKTU391PnZlNwsLFlQ3-Y2AjMj0zgDzhQCIE/exec';
+        const res = await fetch(url);
+        const data = await res.json();
+
+        todosOsDados = data.dados || data; // caso venha como { dados: [...] }
+
+        filtrar('todos'); // exibe total geral ao carregar
+      } catch (err) {
+        document.getElementById('dadosEstatisticos').innerHTML = '<p>Erro ao carregar os dados.</p>';
+        console.error(err);
+      }
+    }
+
+    function filtrar(secao) {
+      const dadosFiltrados = todosOsDados.filter(linha => {
+        if (secao === 'todos') return true;
+        return (linha.secaoJudiciaria || '').toLowerCase() === secao.toLowerCase();
+      });
+
+      const totalFormularios = dadosFiltrados.length;
+      const totalHomens = dadosFiltrados.filter(l => (l.genero || '').toLowerCase().includes('masculino')).length;
+      const totalMulheres = dadosFiltrados.filter(l => (l.genero || '').toLowerCase().includes('feminino')).length;
+
+      const beneficiosTotais = {};
+      dadosFiltrados.forEach(linha => {
+        let lista = linha.beneficios;
+        if (typeof lista === 'string') {
+          lista = lista.split(',').map(i => i.trim());
+        }
+
+        (lista || []).forEach(beneficio => {
+          if (beneficio) {
+            beneficiosTotais[beneficio] = (beneficiosTotais[beneficio] || 0) + 1;
+          }
+        });
+      });
+
+      let html = `
+        <p><strong>Total de formulários preenchidos:</strong> ${totalFormularios}</p>
+        <p><strong>Homens:</strong> ${totalHomens}</p>
+        <p><strong>Mulheres:</strong> ${totalMulheres}</p>
+        <p><strong>Benefícios selecionados:</strong></p>
+        <ul>
+      `;
+      for (const [beneficio, quantidade] of Object.entries(beneficiosTotais)) {
+        html += `<li>${beneficio}: ${quantidade}</li>`;
+      }
+      html += '</ul>';
+
+      document.getElementById('dadosEstatisticos').innerHTML = html;
+    }
+
+    carregarDados();
+  </script>
+
+</body>
+</html>
