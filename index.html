@@ -232,5 +232,50 @@
   <footer>
     <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
   </footer>
+<script>
+  function calcularIdade() {
+    const nascimento = document.getElementById('dataNascimento')?.value;
+    const campoIdade = document.getElementById('idade');
+    if (nascimento && campoIdade) {
+      const hoje = new Date();
+      const nascimentoData = new Date(nascimento);
+      let idade = hoje.getFullYear() - nascimentoData.getFullYear();
+      const m = hoje.getMonth() - nascimentoData.getMonth();
+      if (m < 0 || (m === 0 && hoje.getDate() < nascimentoData.getDate())) {
+        idade--;
+      }
+      campoIdade.value = idade;
+    }
+  }
+
+  window.onload = function () {
+    const hoje = new Date();
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const ano = hoje.getFullYear();
+    const dataAtual = document.getElementById('dataAtual');
+    if (dataAtual) dataAtual.value = `${ano}-${mes}-${dia}`;
+
+    document.querySelectorAll('.card-checkbox').forEach(item => {
+      item.addEventListener('click', function () {
+        const input = this.querySelector('input[type="checkbox"]');
+        if (input) {
+          input.checked = !input.checked;
+          this.classList.toggle('selected', input.checked);
+        }
+      });
+    });
+
+    document.querySelectorAll('.checkbox-final').forEach(item => {
+      item.addEventListener('click', function () {
+        const input = this.querySelector('input[type="checkbox"]');
+        if (input) {
+          input.checked = !input.checked;
+          this.classList.toggle('selected', input.checked);
+        }
+      });
+    });
+  };
+</script>
 </body>
 </html>
