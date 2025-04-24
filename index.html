@@ -57,14 +57,16 @@
       margin-bottom: 4px;
     }
     input, select {
-      padding: 8px;
+      width: 100%;
+      padding: 10px;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      box-sizing: border-box;
     }
     .checkbox-group {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 0.5rem 1rem;
       margin: 1rem 0;
     }
@@ -79,13 +81,12 @@
     }
     .assinaturas {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       gap: 2rem;
       margin-top: 2rem;
-      align-items: center;
     }
     .assinaturas div {
-      width: 100%;
+      flex: 1;
       text-align: center;
     }
     .assinaturas input {
