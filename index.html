@@ -229,6 +229,7 @@
     <div class="submit-print" style="text-align:center; margin-top:2rem;">
   <button id="btnSalvar" onclick="enviarFormulario()">Salvar</button>
   <button id="btnImprimir" onclick="prepararParaImpressao()" disabled>Imprimir</button>
+  <button onclick="resetarFormulario()">Novo Formulário</button>
 </div>
 </div>
 <footer>
@@ -251,39 +252,40 @@
   }
 
   window.onload = function () {
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2, '0');
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-    const ano = hoje.getFullYear();
-    const dataAtual = document.getElementById('dataAtual');
-    if (dataAtual) dataAtual.value = `${ano}-${mes}-${dia}`;
+  const hoje = new Date();
+  const dia = String(hoje.getDate()).padStart(2, '0');
+  const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+  const ano = hoje.getFullYear();
+  const dataAtual = document.getElementById('dataAtual');
+  if (dataAtual) dataAtual.value = `${ano}-${mes}-${dia}`;
 
-    document.querySelectorAll('.card-checkbox').forEach(item => {
-      item.addEventListener('click', function () {
-        const input = this.querySelector('input[type="checkbox"]');
-        if (input) {
-          input.checked = !input.checked;
-          this.classList.toggle('selected', input.checked);
-        }
-      });
+  document.querySelectorAll('.card-checkbox input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', function () {
+      this.closest('.card-checkbox').classList.toggle('selected', this.checked);
     });
+  });
 
-    document.querySelectorAll('.checkbox-final').forEach(item => {
-      item.addEventListener('click', function () {
-        const input = this.querySelector('input[type="checkbox"]');
-        if (input) {
-          input.checked = !input.checked;
-          this.classList.toggle('selected', input.checked);
-        }
-      });
+  document.querySelectorAll('.checkbox-final input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', function () {
+      this.closest('.checkbox-final').classList.toggle('selected', this.checked);
     });
-  };
+  });
+};
 async function enviarFormulario() {
+  const nome = document.getElementById('nome').value.trim();
+  const cpf = document.getElementById('cpf').value.trim();
+  const atermador = document.getElementById('atermador').value.trim();
+
+  if (!nome || !cpf || !atermador) {
+    alert("Por favor, preencha os campos obrigatórios: Nome, CPF e Atermador.");
+    return;
+  }
+
   const beneficiosSelecionados = Array.from(document.querySelectorAll('.card-checkbox input:checked')).map(i => i.parentElement.textContent.trim());
   const dados = {
     secaoJudiciaria: document.getElementById('secaoJudiciaria').value,
-    nome: document.getElementById('nome').value,
-    cpf: document.getElementById('cpf').value,
+    nome,
+    cpf,
     rg: document.getElementById('rg').value,
     dataNascimento: document.getElementById('dataNascimento').value,
     idade: document.getElementById('idade').value,
@@ -304,8 +306,22 @@ async function enviarFormulario() {
     mpu: document.getElementById('mpu').checked,
     local: document.getElementById('local').value,
     dataAtual: document.getElementById('dataAtual').value,
-    atermador: document.getElementById('atermador').value
+    atermador
   };
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwM4Dh0AoTsmli_nZ3sQGnjShgg_cAx8WaGj8K-1UOcsfkU5lVKpn6dqa6Hzs36CMxZ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    });
+    alert("Dados salvos.");
+    document.getElementById('btnImprimir').disabled = false;
+  } catch (error) {
+    alert("Erro ao salvar: " + error.message);
+  }
+};
 
   try {
     await fetch("https://script.google.com/macros/s/AKfycbwM4Dh0AoTsmli_nZ3sQGnjShgg_cAx8WaGj8K-1UOcsfkU5lVKpn6dqa6Hzs36CMxZ/exec", {
@@ -323,11 +339,25 @@ async function enviarFormulario() {
 
 function prepararParaImpressao() {
   document.querySelectorAll('select').forEach(e => e.style.display = 'none');
-  const secaoText = document.getElementById('secaoJudiciaria').value.toUpperCase();
-  document.getElementById('secaoDisplay').textContent = secaoText;
+  const secao = document.getElementById('secaoJudiciaria').value.toUpperCase();
+  document.getElementById('secaoDisplay').textContent = secao;
   document.getElementById('btnSalvar').style.display = 'none';
   document.getElementById('btnImprimir').style.display = 'none';
+  document.querySelectorAll('.card-checkbox, .checkbox-final').forEach(el => {
+    const checkbox = el.querySelector('input[type="checkbox"]');
+    if (!checkbox.checked) {
+      el.style.display = 'none';
+    }
+  });
   window.print();
+}
+function resetarFormulario() {
+  document.querySelectorAll('input[type="text"], input[type="date"], input[type="number"], input[type="tel"]').forEach(el => el.value = '');
+  document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+  document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+  document.getElementById('secaoJudiciaria').value = '';
+  document.getElementById('secaoDisplay').textContent = '';
+  document.getElementById('btnImprimir').disabled = true;
 }
 </script>
 </body>
