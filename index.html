@@ -139,59 +139,6 @@
     }
   </style>
 </head>
-<script>
-  async function enviarFormulario() {
-    const beneficiosSelecionados = Array.from(document.querySelectorAll('.card-checkbox input:checked')).map(i => i.parentElement.textContent.trim());
-    const dados = {
-      secaoJudiciaria: document.getElementById('secaoJudiciaria').value,
-      nome: document.getElementById('nome').value,
-      cpf: document.getElementById('cpf').value,
-      rg: document.getElementById('rg').value,
-      dataNascimento: document.getElementById('dataNascimento').value,
-      idade: document.getElementById('idade').value,
-      estadoCivil: document.getElementById('estadoCivil').value,
-      profissao: document.getElementById('profissao').value,
-      escolaridade: document.getElementById('escolaridade').value,
-      genero: document.getElementById('genero').value,
-      logradouro: document.getElementById('logradouro').value,
-      numero: document.getElementById('numero').value,
-      complemento: document.getElementById('complemento').value,
-      bairro: document.getElementById('bairro').value,
-      cidade: document.getElementById('cidade').value,
-      telefone: document.getElementById('telefone').value,
-      beneficios: beneficiosSelecionados,
-      whatsapp: document.getElementById('whatsapp').checked,
-      dpu: document.getElementById('dpu').checked,
-      idoso: document.getElementById('idoso').checked,
-      mpu: document.getElementById('mpu').checked,
-      local: document.getElementById('local').value,
-      dataAtual: document.getElementById('dataAtual').value,
-      atermador: document.getElementById('atermador').value
-    };
-
-    try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbwM4Dh0AoTsmli_nZ3sQGnjShgg_cAx8WaGj8K-1UOcsfkU5lVKpn6dqa6Hzs36CMxZ/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-      });
-
-      if (response.ok) {
-        alert("Dados salvos com sucesso!");
-        window.print();
-      } else {
-        alert("Erro ao salvar: " + response.statusText);
-      }
-
-    } catch (error) {
-      alert("Erro de conexão com o servidor: " + error.message);
-    }
-  }
-</script>
-
 <body>
   <header>
     <img src="https://leofogaca.github.io/formulario-previdenciario/cabecalho.png" alt="Cabeçalho">
@@ -279,13 +226,12 @@
         <p>__________________________<br>Atermador(a)</p>
         <input type="text" id="atermador" placeholder="Nome do Atermador">
       </div>
-    </div>
-  </div>
-<div class="submit-print" style="text-align:center; margin-top:2rem;">
-  <button onclick="enviarFormulario()">Salvar e Imprimir</button>
+    <div class="submit-print" style="text-align:center; margin-top:2rem;">
+  <button id="btnSalvar" onclick="enviarFormulario()">Salvar</button>
+  <button id="btnImprimir" onclick="prepararParaImpressao()" disabled>Imprimir</button>
 </div>
-
-  <footer>
+</div>
+<footer>
     <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
   </footer>
 <script>
@@ -332,6 +278,57 @@
       });
     });
   };
+async function enviarFormulario() {
+  const beneficiosSelecionados = Array.from(document.querySelectorAll('.card-checkbox input:checked')).map(i => i.parentElement.textContent.trim());
+  const dados = {
+    secaoJudiciaria: document.getElementById('secaoJudiciaria').value,
+    nome: document.getElementById('nome').value,
+    cpf: document.getElementById('cpf').value,
+    rg: document.getElementById('rg').value,
+    dataNascimento: document.getElementById('dataNascimento').value,
+    idade: document.getElementById('idade').value,
+    estadoCivil: document.getElementById('estadoCivil').value,
+    profissao: document.getElementById('profissao').value,
+    escolaridade: document.getElementById('escolaridade').value,
+    genero: document.getElementById('genero').value,
+    logradouro: document.getElementById('logradouro').value,
+    numero: document.getElementById('numero').value,
+    complemento: document.getElementById('complemento').value,
+    bairro: document.getElementById('bairro').value,
+    cidade: document.getElementById('cidade').value,
+    telefone: document.getElementById('telefone').value,
+    beneficios: beneficiosSelecionados,
+    whatsapp: document.getElementById('whatsapp').checked,
+    dpu: document.getElementById('dpu').checked,
+    idoso: document.getElementById('idoso').checked,
+    mpu: document.getElementById('mpu').checked,
+    local: document.getElementById('local').value,
+    dataAtual: document.getElementById('dataAtual').value,
+    atermador: document.getElementById('atermador').value
+  };
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwM4Dh0AoTsmli_nZ3sQGnjShgg_cAx8WaGj8K-1UOcsfkU5lVKpn6dqa6Hzs36CMxZ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    });
+    alert("Dados salvos.");
+    document.getElementById('btnImprimir').disabled = false;
+  } catch (error) {
+    alert("Erro ao salvar: " + error.message);
+  }
+}
+
+function prepararParaImpressao() {
+  document.querySelectorAll('select').forEach(e => e.style.display = 'none');
+  const secaoText = document.getElementById('secaoJudiciaria').value.toUpperCase();
+  document.getElementById('secaoDisplay').textContent = secaoText;
+  document.getElementById('btnSalvar').style.display = 'none';
+  document.getElementById('btnImprimir').style.display = 'none';
+  window.print();
+}
 </script>
 </body>
 </html>
