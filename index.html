@@ -6,70 +6,95 @@
   <title>Formulário Previdenciário</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      padding: 1.5rem;
-      background: white;
-      font-size: 14px;
+      padding: 2rem 1rem;
+      background: #fdfdfd;
+      font-size: 16px;
+      color: #333;
     }
     header, footer {
       text-align: center;
+      margin-bottom: 2rem;
     }
     header img, footer img {
+      max-width: 720px;
       width: 100%;
-      max-width: 700px;
+      height: auto;
     }
     h2 {
       text-align: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      padding: 0 1rem;
     }
-    .field-group, .final-group {
+    .form-section {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .field-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 1rem;
       margin-bottom: 1rem;
     }
-    .field, .field-full {
+    .field, .field-half, .field-full {
+      display: flex;
+      flex-direction: column;
+    }
+    .field-full {
       flex: 1 1 100%;
     }
     .field-half {
       flex: 1 1 48%;
     }
     label {
-      display: block;
+      font-weight: 500;
       margin-bottom: 4px;
     }
     input, select {
-      width: 100%;
-      padding: 6px;
-      font-size: 14px;
-      box-sizing: border-box;
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .checkbox-group {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 0.5rem 1rem;
       margin: 1rem 0;
     }
     .checkbox-group label {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.5rem;
+      font-weight: normal;
+    }
+    ol {
+      padding-left: 1.2rem;
     }
     .assinaturas {
       display: flex;
       flex-direction: column;
       gap: 2rem;
       margin-top: 2rem;
+      align-items: center;
     }
     .assinaturas div {
+      width: 100%;
       text-align: center;
     }
     .assinaturas input {
       border: none;
       border-bottom: 1px solid #000;
-      width: 80%;
       text-align: center;
       font-weight: bold;
+      width: 80%;
+      margin-top: 0.5rem;
     }
     @media print {
       button, .submit-print, select { display: none; }
@@ -82,95 +107,97 @@
     <img src="https://leofogaca.github.io/formulario-previdenciario/cabecalho.png" alt="Cabeçalho">
   </header>
 
-  <h2>EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
-  <div class="field-full">
-    <label>Seção Judiciária:
-      <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
-        <option value="">Selecione...</option>
-        <option value="Amazonas">Amazonas</option>
-        <option value="Acre">Acre</option>
-      </select>
-    </label>
-  </div>
-
-  <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
-
-  <div class="field-group">
-    <div class="field-half"><label>CPF:<input type="text" id="cpf"></label></div>
-    <div class="field-half"><label>RG:<input type="text" id="rg"></label></div>
-  </div>
-
-  <div class="field-group">
-    <div class="field-half"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
-    <div class="field-half"><label>Idade:<input type="number" id="idade" readonly></label></div>
-  </div>
-
-  <div class="field-group">
-    <div class="field-half"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
-    <div class="field-half"><label>Profissão:<input type="text" id="profissao"></label></div>
-  </div>
-
-  <div class="field-group">
-    <div class="field-half"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
-    <div class="field-half"><label>Gênero:<input type="text" id="genero"></label></div>
-  </div>
-
-  <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
-
-  <div class="field-group">
-    <div class="field-half"><label>Número:<input type="text" id="numero"></label></div>
-    <div class="field-half"><label>Complemento:<input type="text" id="complemento"></label></div>
-  </div>
-
-  <div class="field-group">
-    <div class="field-half"><label>Bairro:<input type="text" id="bairro"></label></div>
-    <div class="field-half"><label>Cidade:<input type="text" id="cidade"></label></div>
-  </div>
-
-  <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
-
-  <p style="margin-top:1rem">Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
-  <div class="checkbox-group" id="beneficios">
-    <label><input type="checkbox" value="Aposentadoria por idade rural"> Aposentadoria por idade rural</label>
-    <label><input type="checkbox" value="Aposentadoria por idade urbana"> Aposentadoria por idade urbana</label>
-    <label><input type="checkbox" value="Aposentadoria por invalidez rural"> Aposentadoria por invalidez rural</label>
-    <label><input type="checkbox" value="Aposentadoria por invalidez urbana"> Aposentadoria por invalidez urbana</label>
-    <label><input type="checkbox" value="Auxílio-doença urbano"> Auxílio-doença urbano</label>
-    <label><input type="checkbox" value="Auxílio-doença rural"> Auxílio-doença rural</label>
-    <label><input type="checkbox" value="Salário-maternidade"> Salário-maternidade</label>
-    <label><input type="checkbox" value="Auxílio-reclusão"> Auxílio-reclusão</label>
-    <label><input type="checkbox" value="Pensão por morte"> Pensão por morte</label>
-    <label><input type="checkbox" value="Pensão vitalícia soldado da borracha"> Pensão vitalícia soldado da borracha</label>
-    <label><input type="checkbox" value="LOAS"> LOAS</label>
-  </div>
-
-  <p>Restando preenchidos os requisitos legais, requer:</p>
-  <ol>
-    <li>A concessão dos benefícios da justiça gratuita;</li>
-    <li>Que seja condenado o INSS a conceder ao(à) Autor(a) o benefício previdenciário/assistencial supra.</li>
-    <li>A renúncia ao que exceder à soma de 60 (sessenta) salários-mínimos.</li>
-  </ol>
-  <p>Valor da causa, até 60 (sessenta) salários-mínimos.</p>
-
-  <div class="checkbox-group">
-    <label><input type="checkbox"> Aceita intimação por WhatsApp</label>
-    <label><input type="checkbox"> Aceita ser defendido pela DPU</label>
-    <label><input type="checkbox"> Idoso</label>
-    <label><input type="checkbox"> Menor/incapaz – MPU</label>
-  </div>
-
-  <div class="final-group">
-    <div class="field-half"><label>Local:<input type="text" id="local"></label></div>
-    <div class="field-half"><label>Data:<input type="date" id="dataAtual"></label></div>
-  </div>
-
-  <div class="assinaturas">
-    <div>
-      <p>__________________________<br>Autor(a)</p>
+  <div class="form-section">
+    <h2>EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
+    <div class="field-full">
+      <label>Seção Judiciária:
+        <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
+          <option value="">Selecione...</option>
+          <option value="Amazonas">Amazonas</option>
+          <option value="Acre">Acre</option>
+        </select>
+      </label>
     </div>
-    <div>
-      <p>__________________________<br>Atermador(a)</p>
-      <input type="text" id="atermador" placeholder="Nome do Atermador">
+
+    <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
+
+    <div class="field-group">
+      <div class="field-half"><label>CPF:<input type="text" id="cpf"></label></div>
+      <div class="field-half"><label>RG:<input type="text" id="rg"></label></div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
+      <div class="field-half"><label>Idade:<input type="number" id="idade" readonly></label></div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
+      <div class="field-half"><label>Profissão:<input type="text" id="profissao"></label></div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
+      <div class="field-half"><label>Gênero:<input type="text" id="genero"></label></div>
+    </div>
+
+    <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Número:<input type="text" id="numero"></label></div>
+      <div class="field-half"><label>Complemento:<input type="text" id="complemento"></label></div>
+    </div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Bairro:<input type="text" id="bairro"></label></div>
+      <div class="field-half"><label>Cidade:<input type="text" id="cidade"></label></div>
+    </div>
+
+    <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
+
+    <p>Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
+    <div class="checkbox-group" id="beneficios">
+      <label><input type="checkbox" value="Aposentadoria por idade rural"> Aposentadoria por idade rural</label>
+      <label><input type="checkbox" value="Aposentadoria por idade urbana"> Aposentadoria por idade urbana</label>
+      <label><input type="checkbox" value="Aposentadoria por invalidez rural"> Aposentadoria por invalidez rural</label>
+      <label><input type="checkbox" value="Aposentadoria por invalidez urbana"> Aposentadoria por invalidez urbana</label>
+      <label><input type="checkbox" value="Auxílio-doença urbano"> Auxílio-doença urbano</label>
+      <label><input type="checkbox" value="Auxílio-doença rural"> Auxílio-doença rural</label>
+      <label><input type="checkbox" value="Salário-maternidade"> Salário-maternidade</label>
+      <label><input type="checkbox" value="Auxílio-reclusão"> Auxílio-reclusão</label>
+      <label><input type="checkbox" value="Pensão por morte"> Pensão por morte</label>
+      <label><input type="checkbox" value="Pensão vitalícia soldado da borracha"> Pensão vitalícia soldado da borracha</label>
+      <label><input type="checkbox" value="LOAS"> LOAS</label>
+    </div>
+
+    <p>Restando preenchidos os requisitos legais, requer:</p>
+    <ol>
+      <li>A concessão dos benefícios da justiça gratuita;</li>
+      <li>Que seja condenado o INSS a conceder ao(à) Autor(a) o benefício previdenciário/assistencial supra.</li>
+      <li>A renúncia ao que exceder à soma de 60 (sessenta) salários-mínimos.</li>
+    </ol>
+    <p>Valor da causa, até 60 (sessenta) salários-mínimos.</p>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox"> Aceita intimação por WhatsApp</label>
+      <label><input type="checkbox"> Aceita ser defendido pela DPU</label>
+      <label><input type="checkbox"> Idoso</label>
+      <label><input type="checkbox"> Menor/incapaz – MPU</label>
+    </div>
+
+    <div class="field-group">
+      <div class="field-half"><label>Local:<input type="text" id="local"></label></div>
+      <div class="field-half"><label>Data:<input type="date" id="dataAtual"></label></div>
+    </div>
+
+    <div class="assinaturas">
+      <div>
+        <p>__________________________<br>Autor(a)</p>
+      </div>
+      <div>
+        <p>__________________________<br>Atermador(a)</p>
+        <input type="text" id="atermador" placeholder="Nome do Atermador">
+      </div>
     </div>
   </div>
 
