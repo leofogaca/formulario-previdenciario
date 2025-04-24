@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulário Previdenciário</title>
   <style>
-    /* Estilo base do formulário */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
@@ -76,7 +75,6 @@
       box-sizing: border-box;
     }
 
-    /* Estilo com cartões clicáveis para benefícios */
     .card-checkbox-group {
       display: flex;
       flex-wrap: wrap;
@@ -96,17 +94,15 @@
       background: #fff;
     }
 
-    .card-checkbox:hover {
-      background: #f0f8ff;
+    .card-checkbox.selected {
+      background: #e6f7ff;
       border-color: #0077cc;
     }
 
     .card-checkbox input {
-      transform: scale(1.2);
-      margin: 0;
+      display: none;
     }
 
-    /* Estilo exclusivo para informações finais */
     .checkbox-group-finais {
       display: flex;
       flex-wrap: wrap;
@@ -230,31 +226,7 @@
       <label class="card-checkbox"><input type="checkbox" id="loas"> LOAS</label>
     </div>
 
-        <div class="checkbox-group" id="beneficios">
-
-        <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_idade_rural" name="beneficios"> Aposentadoria por idade rural</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_idade_urbana" name="beneficios"> Aposentadoria por idade urbana</label></div>
-  
-  
-        <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_invalidez_rural" name="beneficios"> Aposentadoria por invalidez rural</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_invalidez_urbana" name="beneficios"> Aposentadoria por invalidez urbana</label></div>
-
-
-        <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_doenca_urbano" name="beneficios"> Auxílio-doença urbano</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_doenca_rural" name="beneficios"> Auxílio-doença rural</label></div>
- 
-  
-        <div class="checkbox-cell"><label><input type="checkbox" id="salario_maternidade" name="beneficios"> Salário-maternidade</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_reclusao" name="beneficios"> Auxílio-reclusão</label></div>
- 
-   
-        <div class="checkbox-cell"><label><input type="checkbox" id="pensao_morte" name="beneficios"> Pensão por morte</label></div>
-        <div class="checkbox-cell"><label><input type="checkbox" id="pensao_soldado_borracha" name="beneficios"> Pensão vitalícia soldado da borracha</label></div>
-
     
-        <div class="checkbox-cell"><label><input type="checkbox" id="loas" name="beneficios"> LOAS</label></div>
-      
-    </div>
 
     <p>Restando preenchidos os requisitos legais, requer:</p>
     <ol>
@@ -297,7 +269,6 @@
   <footer>
     <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
   </footer>
-
   <script>
     function calcularIdade() {
       const nascimento = document.getElementById('dataNascimento')?.value;
@@ -321,6 +292,12 @@
       const ano = hoje.getFullYear();
       const dataAtual = document.getElementById('dataAtual');
       if (dataAtual) dataAtual.value = `${ano}-${mes}-${dia}`;
+
+      document.querySelectorAll('.card-checkbox').forEach(item => {
+        item.addEventListener('click', () => {
+          item.classList.toggle('selected');
+        });
+      });
     }
   </script>
 </body>
