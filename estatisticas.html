@@ -72,13 +72,12 @@
 
     async function carregarDados() {
       try {
-        const url = 'https://script.google.com/macros/s/AKfycbxOL1Ai-AU8mQc0rRrKytCeplU0XQDCsKTU391PnZlNwsLFlQ3-Y2AjMj0zgDzhQCIE/exec';
+        const url = 'https://script.google.com/macros/s/AKfycbxZ36ShvErQumxLbt6Ni5Ddj375LmIArtLzmCTtOpFfc4ZLRnq6LjRbp-kNRMY7ojoG/exec';
         const res = await fetch(url);
         const data = await res.json();
 
-        todosOsDados = data.dados || data; // caso venha como { dados: [...] }
-
-        filtrar('todos'); // exibe total geral ao carregar
+        todosOsDados = data;
+        filtrar('todos');
       } catch (err) {
         document.getElementById('dadosEstatisticos').innerHTML = '<p>Erro ao carregar os dados.</p>';
         console.error(err);
