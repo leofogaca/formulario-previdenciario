@@ -64,25 +64,31 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-      .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        gap: 0.5rem 2rem;
-        margin: 1rem 0;
-        align-items: start;
-      }
-      .checkbox-cell {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-      .checkbox-cell input[type="checkbox"] {
-        transform: scale(1.1);
-        accent-color: #005fa3;
-        margin: 0;
-      }
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Colunas de tamanho igual */
+  gap: 0.5rem 1rem; /* Reduzir espaçamento horizontal */
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.checkbox-row { /* Remover esta classe se não existir no HTML */
+  display: contents; /* Faz os filhos diretos participarem do grid pai */
+}
+
+.checkbox-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  white-space: normal; /* Permite quebra de linha */
+  min-width: 0; /* Permite que o texto quebre */
+}
+
+.checkbox-cell label {
+  flex: 1;
+  min-width: 0; /* Impede overflow */
+}
     ol {
       padding-left: 1.2rem;
     }
@@ -165,29 +171,29 @@
 
     <p>Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
     <div class="checkbox-group" id="beneficios">
-      <div class="checkbox-row">
+
         <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_idade_rural" name="beneficios"> Aposentadoria por idade rural</label></div>
         <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_idade_urbana" name="beneficios"> Aposentadoria por idade urbana</label></div>
-      </div>
-      <div class="checkbox-row">
+  
+  
         <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_invalidez_rural" name="beneficios"> Aposentadoria por invalidez rural</label></div>
         <div class="checkbox-cell"><label><input type="checkbox" id="aposentadoria_invalidez_urbana" name="beneficios"> Aposentadoria por invalidez urbana</label></div>
-      </div>
-      <div class="checkbox-row">
+
+
         <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_doenca_urbano" name="beneficios"> Auxílio-doença urbano</label></div>
         <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_doenca_rural" name="beneficios"> Auxílio-doença rural</label></div>
-      </div>
-      <div class="checkbox-row">
+ 
+  
         <div class="checkbox-cell"><label><input type="checkbox" id="salario_maternidade" name="beneficios"> Salário-maternidade</label></div>
         <div class="checkbox-cell"><label><input type="checkbox" id="auxilio_reclusao" name="beneficios"> Auxílio-reclusão</label></div>
-      </div>
-      <div class="checkbox-row">
+ 
+   
         <div class="checkbox-cell"><label><input type="checkbox" id="pensao_morte" name="beneficios"> Pensão por morte</label></div>
         <div class="checkbox-cell"><label><input type="checkbox" id="pensao_soldado_borracha" name="beneficios"> Pensão vitalícia soldado da borracha</label></div>
-      </div>
-      <div class="checkbox-row">
+
+    
         <div class="checkbox-cell"><label><input type="checkbox" id="loas" name="beneficios"> LOAS</label></div>
-      </div>
+      
     </div>
 
     <p>Restando preenchidos os requisitos legais, requer:</p>
