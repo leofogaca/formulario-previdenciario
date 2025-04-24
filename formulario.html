@@ -13,12 +13,12 @@
       font-size: 16px;
       color: #333;
     }
-header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-  margin-top: 0;
-}
-    header img, footer img {
+    header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+    header img {
       max-width: 720px;
       width: 100%;
       height: auto;
@@ -104,60 +104,69 @@ header {
       text-align: center;
       margin-top: 2rem;
     }
+    .submit-print button, .voltar {
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #0077cc;
+      color: #fff;
+      cursor: pointer;
+    }
+    .submit-print button:hover, .voltar:hover {
+      background-color: #005fa3;
+    }
+    .voltar {
+      display: block;
+      width: fit-content;
+      margin: 2rem auto 0 auto;
+      text-decoration: none;
+      text-align: center;
+    }
     @media print {
-  body {
-    font-size: 10px;
-    margin: 10mm;
-  }
-  input, select {
-    font-size: 10px;
-  }
-  header {
-    margin-bottom: 1rem;
-  }
-
-  footer {
-    display: none !important;
-  }
-
-  .form-section {
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .card-checkbox,
-  .checkbox-final {
-    border: none !important;
-    padding: 0;
-    margin: 0.2rem 0;
-    background: none !important;
-  }
-
-  .card-checkbox input,
-  .checkbox-final input {
-    display: none !important;
-  }
-
-  .card-checkbox:not(.selected),
-  .checkbox-final:not(.selected) {
-    display: none !important;
-  }
-
-  .field-group, .field-full, .field-half, .assinaturas {
-    page-break-inside: avoid;
-  }
-
-  button, .submit-print, select {
-    display: none !important;
-  }
-
-  input, select {
-    border: none;
-    padding: 0;
-    font-size: 12px;
-  }
-}
+      body {
+        font-size: 10px;
+        margin: 10mm;
+      }
+      input, select {
+        font-size: 10px;
+      }
+      header {
+        margin-bottom: 1rem;
+      }
+      footer, .voltar {
+        display: none !important;
+      }
+      .form-section {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+      }
+      .card-checkbox, .checkbox-final {
+        border: none !important;
+        padding: 0;
+        margin: 0.2rem 0;
+        background: none !important;
+      }
+      .card-checkbox input, .checkbox-final input {
+        display: none !important;
+      }
+      .card-checkbox:not(.selected), .checkbox-final:not(.selected) {
+        display: none !important;
+      }
+      .field-group, .field-full, .field-half, .assinaturas {
+        page-break-inside: avoid;
+      }
+      button, .submit-print, select {
+        display: none !important;
+      }
+      input, select {
+        border: none;
+        padding: 0;
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -250,18 +259,15 @@ header {
       </div>
     </div>
 
-    <div class="submit-print">
-      <button id="btnSalvar" onclick="enviarFormulario()">Salvar dados</button>
-<button id="btnImprimir" onclick="prepararParaImpressao()" disabled>Imprimir</button>
-      <button onclick="resetarFormulario()">Novo formulário</button>
-    </div>
+  <div class="submit-print">
+    <button id="btnSalvar" onclick="enviarFormulario()">Salvar dados</button>
+    <button id="btnImprimir" onclick="prepararParaImpressao()" disabled>Imprimir</button>
+    <button onclick="resetarFormulario()">Novo formulário</button>
   </div>
 
-  <footer>
-    <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
-  </footer>
+  <a href="https://leofogaca.github.io/formulario-previdenciario/" class="voltar">Voltar à Página Inicial</a>
 
-  <script>
+    <script>
     function calcularIdade() {
       const nascimento = document.getElementById('dataNascimento')?.value;
       const campoIdade = document.getElementById('idade');
@@ -355,7 +361,7 @@ header {
 	function prepararParaImpressao() {
   // Cria folha de estilo
   const style = document.createElement("style");
-  style.innerHTML = `
+  style.innerHTML = 
     @media print {
       .card-checkbox:not(.selected),
       .checkbox-final:not(.selected),
@@ -395,7 +401,7 @@ header {
         font-size: 10px;
       }
     }
-  `;
+  ;
   document.head.appendChild(style);
 
   // Adiciona "SIM" aos selecionados finais
@@ -419,5 +425,5 @@ header {
   }, 1000);
 }
   </script>
-</body>
+    </body>
 </html>
