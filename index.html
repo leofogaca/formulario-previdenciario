@@ -65,25 +65,16 @@
       box-sizing: border-box;
     }
       .checkbox-group {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem 2rem;
         margin: 1rem 0;
       }
-      .checkbox-row {
-        display: table-row;
-      }
       .checkbox-cell {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 6px 0;
-      }
-      .checkbox-cell label {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 0.3rem;
+        gap: 0.5rem;
         font-weight: 500;
-        margin-left: 4px;
       }
       .checkbox-cell input[type="checkbox"] {
         transform: scale(1.1);
