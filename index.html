@@ -19,15 +19,21 @@
       width: 100%;
       max-width: 700px;
     }
+    h2 {
+      text-align: center;
+    }
     .field-group {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 0.5rem;
     }
-    .field {
+    .field, .field-full {
       flex: 1;
       min-width: 180px;
+    }
+    .field-full {
+      width: 100%;
     }
     label {
       display: block;
@@ -37,6 +43,7 @@
       width: 100%;
       padding: 4px;
       font-size: 14px;
+      box-sizing: border-box;
     }
     .checkbox-group {
       display: flex;
@@ -79,38 +86,47 @@
     <img src="https://leofogaca.github.io/formulario-previdenciario/cabecalho.png" alt="Cabeçalho">
   </header>
 
-  <h2 style="text-align:center">EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
-  <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
-    <option value="">Selecione...</option>
-    <option value="Amazonas">Amazonas</option>
-    <option value="Acre">Acre</option>
-  </select>
+  <h2>EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DOS JUIZADOS ESPECIAIS FEDERAIS DA SEÇÃO JUDICIÁRIA DO <span id="secaoDisplay"></span></h2>
+  <div class="field-full">
+    <label>Seção Judiciária:
+      <select id="secaoJudiciaria" onchange="document.getElementById('secaoDisplay').textContent = this.value.toUpperCase();">
+        <option value="">Selecione...</option>
+        <option value="Amazonas">Amazonas</option>
+        <option value="Acre">Acre</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="field-full"><label>Nome:<input type="text" id="nome"></label></div>
 
   <div class="field-group">
-    <div class="field"><label>Nome:<input type="text" id="nome"></label></div>
     <div class="field"><label>CPF:<input type="text" id="cpf"></label></div>
     <div class="field"><label>RG:<input type="text" id="rg"></label></div>
   </div>
+
   <div class="field-group">
     <div class="field"><label>Data de Nascimento:<input type="date" id="dataNascimento" onchange="calcularIdade()"></label></div>
     <div class="field"><label>Idade:<input type="number" id="idade" readonly></label></div>
     <div class="field"><label>Estado Civil:<input type="text" id="estadoCivil"></label></div>
   </div>
+
   <div class="field-group">
     <div class="field"><label>Profissão:<input type="text" id="profissao"></label></div>
     <div class="field"><label>Escolaridade:<input type="text" id="escolaridade"></label></div>
     <div class="field"><label>Gênero:<input type="text" id="genero"></label></div>
   </div>
+
+  <div class="field-full"><label>Logradouro:<input type="text" id="logradouro"></label></div>
+
   <div class="field-group">
-    <div class="field"><label>Logradouro:<input type="text" id="logradouro"></label></div>
     <div class="field"><label>Número:<input type="text" id="numero"></label></div>
     <div class="field"><label>Complemento:<input type="text" id="complemento"></label></div>
-  </div>
-  <div class="field-group">
     <div class="field"><label>Bairro:<input type="text" id="bairro"></label></div>
-    <div class="field"><label>Cidade:<input type="text" id="cidade"></label></div>
-    <div class="field"><label>Telefone:<input type="tel" id="telefone"></label></div>
   </div>
+
+  <div class="field-full"><label>Cidade:<input type="text" id="cidade"></label></div>
+
+  <div class="field-full"><label>Telefone:<input type="tel" id="telefone"></label></div>
 
   <p style="margin-top:1rem">Afirma o(a) Autor(a) que faz jus à concessão do benefício previdenciário/assistencial:</p>
   <div class="checkbox-group" id="beneficios">
@@ -142,9 +158,9 @@
     <label><input type="checkbox"> Menor/incapaz – MPU</label>
   </div>
 
-  <div class="final-group">
-    <label>Local:<input type="text" id="local"></label>
-    <label>Data:<input type="date" id="dataAtual"></label>
+  <div class="field-group">
+    <div class="field"><label>Local:<input type="text" id="local"></label></div>
+    <div class="field"><label>Data:<input type="date" id="dataAtual"></label></div>
   </div>
 
   <div class="assinaturas">
@@ -161,29 +177,29 @@
     <img src="https://leofogaca.github.io/formulario-previdenciario/rodape.png" alt="Rodapé">
   </footer>
 
-<script>
-  function calcularIdade() {
-    const nascimento = document.getElementById('dataNascimento').value;
-    const campoIdade = document.getElementById('idade');
-    if (nascimento) {
-      const hoje = new Date();
-      const nascimentoData = new Date(nascimento);
-      let idade = hoje.getFullYear() - nascimentoData.getFullYear();
-      const m = hoje.getMonth() - nascimentoData.getMonth();
-      if (m < 0 || (m === 0 && hoje.getDate() < nascimentoData.getDate())) {
-        idade--;
+  <script>
+    function calcularIdade() {
+      const nascimento = document.getElementById('dataNascimento').value;
+      const campoIdade = document.getElementById('idade');
+      if (nascimento) {
+        const hoje = new Date();
+        const nascimentoData = new Date(nascimento);
+        let idade = hoje.getFullYear() - nascimentoData.getFullYear();
+        const m = hoje.getMonth() - nascimentoData.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nascimentoData.getDate())) {
+          idade--;
+        }
+        campoIdade.value = idade;
       }
-      campoIdade.value = idade;
     }
-  }
 
-  window.onload = function() {
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2, '0');
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-    const ano = hoje.getFullYear();
-    document.getElementById('dataAtual').value = `${ano}-${mes}-${dia}`;
-  }
-</script>
+    window.onload = function () {
+      const hoje = new Date();
+      const dia = String(hoje.getDate()).padStart(2, '0');
+      const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+      const ano = hoje.getFullYear();
+      document.getElementById('dataAtual').value = `${ano}-${mes}-${dia}`;
+    }
+  </script>
 </body>
 </html>
