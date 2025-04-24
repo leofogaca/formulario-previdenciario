@@ -9,7 +9,15 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #fdfdfd;
       color: #333;
-      padding: 2rem;
+      padding: 2rem 1rem;
+    }
+
+    header img {
+      max-width: 720px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 2rem auto;
     }
 
     h1 {
@@ -51,9 +59,30 @@
       margin: 0.75rem 0;
       font-size: 1rem;
     }
+
+    .voltar {
+      display: block;
+      width: fit-content;
+      margin: 2rem auto 0 auto;
+      padding: 0.75rem 1.5rem;
+      background-color: #0077cc;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .voltar:hover {
+      background-color: #005fa3;
+    }
   </style>
 </head>
 <body>
+
+  <header>
+    <img src="https://leofogaca.github.io/formulario-previdenciario/cabecalho.png" alt="Cabeçalho">
+  </header>
 
   <h1>Estatísticas do Formulário Previdenciário</h1>
 
@@ -66,6 +95,8 @@
   <div id="dadosEstatisticos" class="estatisticas">
     <p>Carregando dados...</p>
   </div>
+
+  <a href="https://leofogaca.github.io/formulario-previdenciario/" class="voltar">Voltar à Página Inicial</a>
 
   <script>
     let todosOsDados = [];
