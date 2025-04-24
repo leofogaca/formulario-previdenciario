@@ -64,18 +64,21 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-    .checkbox-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.5rem 1rem;
-      margin: 1rem 0;
-    }
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: normal;
-    }
+          .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 0.5rem;
+        column-gap: 2rem;
+        margin: 1rem 0;
+      }
+      .checkbox-group label {
+        flex: 0 0 48%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: normal;
+      }
     ol {
       padding-left: 1.2rem;
     }
