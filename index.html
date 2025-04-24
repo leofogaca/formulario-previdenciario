@@ -64,37 +64,24 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-.checkbox-group {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1. Corrige margem esquerda (vermelho) */
-  gap: 0.5rem 1rem;
-  margin: 1rem 0;
-  padding-left: 0; /* Remove padding indesejado */
-  align-items: start;
-}
-
-.checkbox-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem; /* 2. Reduz espaço checkbox-rótulo (azul) */
-  white-space: normal;
-}
-
-.checkbox-cell label {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem; /* Espaço consistente */
-  width: 100%;
-  word-break: break-word; /* 3. Evita overflow (verde) */
-  overflow-wrap: anywhere;
-  margin: 0;
-}
-
-.checkbox-cell input[type="checkbox"] {
-  flex-shrink: 0;
-  margin: 0;
-  transform: scale(1.1); /* Mantém tamanho visual */
-}
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+      .checkbox-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        white-space: normal;
+      }
+      .checkbox-cell input[type="checkbox"] {
+        transform: scale(1.1);
+        accent-color: #005fa3;
+        margin: 0;
+      }
     ol {
       padding-left: 1.2rem;
     }
